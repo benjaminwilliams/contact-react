@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/actionCreators';
 
+import ContactUsForm from './form/ContactUsForm';
 
 // Add Props from redux here
 function mapStateToProps(state){
@@ -11,8 +12,8 @@ function mapStateToProps(state){
   }
 }
 
-function mapDispatchToProps(dispach){
-  return bindActionCreators(actionCreators, dispach);
+function mapDispatchToProps(dispatch){
+  return bindActionCreators(actionCreators, dispatch);
 }
 
 
@@ -20,21 +21,15 @@ class Main extends React.Component {
 
   constructor(){
     super();
-    this.renderName = this.renderName.bind(this);
   }
 
-  renderName(){
-    const name = this.props.contactDetails.name;
-
-    return (
-      <div>Hello, {name}</div>
-    )
-  }
 
   render(){
     return(
       <div>
-        {this.renderName()}
+        <h1>Contact Us</h1>
+        <p>Use the following form to contact us. We will reply as soon as possible</p>
+        <ContactUsForm contactDetails={this.props.contactDetails} setContactDetails={this.props.setContactDetails} />
       </div>
     )
   }

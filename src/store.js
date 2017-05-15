@@ -2,7 +2,7 @@ import { createStore } from 'redux';
 import rootReducer from './reducers/index';
 
 const contactDetails = {
-  "name": "Redux World",
+  "name": "",
   "email": "",
   "message": ""
 };
