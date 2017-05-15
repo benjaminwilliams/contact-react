@@ -53,6 +53,7 @@ export default class ContactUsForm extends React.Component {
           email: response.data.email,
           message: response.data.message
         });
+        window.location = '/#/success';
 
       })
       .catch((error)=>{

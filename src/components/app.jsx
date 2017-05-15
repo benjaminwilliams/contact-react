@@ -42,7 +42,7 @@ class Main extends React.Component {
       <HashRouter>
         <div>
           <Route exact path="/" component={() => (<ContactUsForm contactDetails={this.props.contactDetails} setContactDetails={this.props.setContactDetails}/>)} />
-          <Route exact path="/success" component={Success} />
+          <Route exact path="/success" component={() => (<Success contactDetails={this.props.contactDetails}/>)} />
         </div>
       </HashRouter>
       // <div>
