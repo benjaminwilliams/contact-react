@@ -1,5 +1,5 @@
 import React from 'react';
-
+import * as actionCreators from '../actions/actionCreators';
 class App extends React.Component {
 
   render(){
