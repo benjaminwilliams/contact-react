@@ -1,5 +1,5 @@
 import React from 'react';
-
+import axios from 'axios';
 
 
 export default class ContactUsForm extends React.Component {
@@ -8,6 +8,13 @@ export default class ContactUsForm extends React.Component {
     super(props);
     this.getFieldValues = this.getFieldValues.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      submittedDetails: {
+        name: "",
+        email: "",
+        message: ""
+      }
+    }
   }
 
   // Reads the form and returns the entered values
@@ -21,15 +28,36 @@ export default class ContactUsForm extends React.Component {
 
   // Push contact details to props
   handleSubmit(event){
+    // Using a free online hosted mock API.
+    // Response should be the values passed in with a ID and timestamp added
+    const APIUrl = "https://reqres.in/api";
+    const fieldValues = this.getFieldValues();
+
     event.preventDefault();
-    this.props.setContactDetails(this.getFieldValues());
+
+    this.props.setContactDetails(fieldValues); // save details to props
+
+    // Using axious to post contact us form to API endpoint
+    axios.post(APIUrl + '/contact-us', {
+      name: fieldValues.name,
+      email: fieldValues.email, message: fieldValues.message
+    })
+      .then((response)=>{
+        console.log('finished with repsonse: ' + response);
+        this.setState({
+          submittedDetails: response.data
+        })
+      })
+      .catch((error)=>{
+        console.log('error: ' + error);
+      })
   }
 
 
   render(){
     // get contact details from props
     const contactDetails = this.props.contactDetails;
-
+    const submittedDetails = this.state.submittedDetails;
     return(
       <form onSubmit={this.handleSubmit}>
         <label htmlFor="name" >Name:</label>
@@ -38,14 +66,12 @@ export default class ContactUsForm extends React.Component {
         <input id="email" ref="email" maxLength="256" required type="email" defaultValue={contactDetails.email} />
         <label htmlFor="message">Message:</label>
         <textarea id="message" ref="message"  type="text" rows="5" maxLength="1000" required />
-
-
-
-        name: {contactDetails.name}<br />
-        email: {contactDetails.email}<br />
-        message: {contactDetails.message}<br />
-
         <input type="submit" value="Submit"/>
+
+
+        {submittedDetails.name}
+        {submittedDetails.email}
+        {submittedDetails.message}
       </form>
     )
   }
