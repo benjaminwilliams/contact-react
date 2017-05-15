@@ -22,7 +22,6 @@ loaders.push({
 	exclude: /[\/\\](node_modules|bower_components|public)[\/\\]/,
 	loaders: [
 		'style?sourceMap',
-		// 'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
     'css?modules&importLoaders=1&localIdentName=[local]',
 		'postcss',
 		'sass'
@@ -43,7 +42,7 @@ module.exports = {
 	entry: [
     'babel-polyfill',
 		'react-hot-loader/patch',
-		'./src/index.jsx' // your app's entry point
+		'./src/index.jsx'
 	],
 	devtool: process.env.WEBPACK_DEVTOOL || 'eval-source-map',
 	output: {

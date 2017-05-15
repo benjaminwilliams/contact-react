@@ -17,6 +17,8 @@ To Build for production: `npm run build`
 
 ## Information
 
-The Webpack config uses a modified version of [https://github.com/alicoding/react-webpack-babel](https://github.com/alicoding/react-webpack-babel)
+The build stack including Webpack config and NPM packages is my usual stack when creating React projects.
+Due to this, it may have a few unnecessary packages or tasks.
+  
+The build was originally based on [https://github.com/alicoding/react-webpack-babel](https://github.com/alicoding/react-webpack-babel)
 
-The rest of the stack is my usual stack when creating React projects.

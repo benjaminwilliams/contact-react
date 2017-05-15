@@ -17,6 +17,10 @@ export default class ContactUsForm extends React.Component {
     }
   }
 
+  componentDidMount(){
+    console.log("mounted");
+  }
+
   // Reads the form and returns the entered values
   getFieldValues(){
     return {
@@ -26,13 +30,14 @@ export default class ContactUsForm extends React.Component {
     };
   }
 
+
   // Push contact details to props
   handleSubmit(event){
     // Using a free online hosted mock API.
     // Response should be the values passed in with a ID and timestamp added
     const APIUrl = "https://reqres.in/api";
     const fieldValues = this.getFieldValues();
-
+    const self = this;
     event.preventDefault();
 
     this.props.setContactDetails(fieldValues); // save details to props
@@ -43,10 +48,12 @@ export default class ContactUsForm extends React.Component {
       email: fieldValues.email, message: fieldValues.message
     })
       .then((response)=>{
-        console.log('finished with repsonse: ' + response);
-        this.setState({
-          submittedDetails: response.data
-        })
+        this.props.setContactDetails({
+          name: response.data.name,
+          email: response.data.email,
+          message: response.data.message
+        });
+
       })
       .catch((error)=>{
         console.log('error: ' + error);
