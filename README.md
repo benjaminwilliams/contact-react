@@ -15,6 +15,8 @@ Steps to get the build running
 
 To Build for production: `npm run build`
 
+build will go into the `public` directory.
+
 ## Information
 
 The build stack including Webpack config and NPM packages is my usual stack when creating React projects.

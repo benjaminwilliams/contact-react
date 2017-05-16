@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/actionCreators';
 import { HashRouter, Route, Link } from 'react-router-dom';
+import styles from '../styles/common.scss';
 
 import ContactUsForm from './form/ContactUsForm';
 import Success from './form/Success';

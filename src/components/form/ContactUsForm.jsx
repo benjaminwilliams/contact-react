@@ -68,18 +68,23 @@ export default class ContactUsForm extends React.Component {
     const submittedDetails = this.state.submittedDetails;
     return(
       <form onSubmit={this.handleSubmit}>
-        <label htmlFor="name" >Name:</label>
-        <input id="name" ref="name" type="text" maxLength="256" required defaultValue={contactDetails.name} />
-        <label htmlFor="email" >Email Address:</label>
-        <input id="email" ref="email" maxLength="256" required type="email" defaultValue={contactDetails.email} />
-        <label htmlFor="message">Message:</label>
-        <textarea id="message" ref="message"  type="text" rows="5" maxLength="1000" required />
-        <input type="submit" value="Submit"/>
+        <h1>Contact Us </h1>
+        <div className="form-group">
+          <label htmlFor="name" >Name:</label>
+          <input id="name" ref="name" type="text" maxLength="256" required defaultValue={contactDetails.name} className="form-control"/>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="email" >Email Address:</label>
+          <input id="email" ref="email" maxLength="256" required type="email" defaultValue={contactDetails.email} className="form-control"/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="message">Message:</label>
+          <textarea id="message" ref="message"  type="text" rows="5" maxLength="1000" required className="form-control"/>
+        </div>
+        <input type="submit" value="Submit" className="btn btn-primary"/>
 
 
-        {submittedDetails.name}
-        {submittedDetails.email}
-        {submittedDetails.message}
       </form>
     )
   }

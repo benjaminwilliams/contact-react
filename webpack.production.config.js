@@ -10,20 +10,30 @@ var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 loaders.push({
 	test: /[\/\\]src[\/\\].*\.css/,
 	exclude: /(node_modules|bower_components|public)/,
-	loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[local]')
+	loaders: [
+    'style?sourceMap',
+    'css?modules&importLoaders=1&localIdentName=[local]',
+    'postcss',
+    'sass'
+	]
 });
 
 // local scss modules
 loaders.push({
 	test: /[\/\\]src[\/\\].*\.scss/,
 	exclude: /(node_modules|bower_components|public)/,
-	loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[local]!postcss!sass')
+  loaders: [
+    'style?sourceMap',
+    'css?modules&importLoaders=1&localIdentName=[local]',
+    'postcss',
+    'sass'
+  ]
 });
 // global css files
-loaders.push({
-	test: /[\/\\](node_modules|global)[\/\\].*\.css$/,
-	loader: ExtractTextPlugin.extract('style', 'css')
-});
+// loaders.push({
+// 	test: /[\/\\](node_modules|global)[\/\\].*\.css$/,
+// 	loader: ExtractTextPlugin.extract('style', 'css')
+// });
 
 module.exports = {
 	entry: [
@@ -55,9 +65,9 @@ module.exports = {
 			}
 		}),
 		new webpack.optimize.OccurenceOrderPlugin(),
-		new ExtractTextPlugin('css/style-react.css', {
-			allChunks: true
-		}),
+		// new ExtractTextPlugin('css/style-react.css', {
+		// 	allChunks: true
+		// }),
     new HtmlWebpackPlugin({
       template: './src/template.html'
     }),
