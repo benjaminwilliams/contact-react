@@ -5,8 +5,9 @@ import * as actionCreators from '../actions/actionCreators';
 import { HashRouter, Route, Link } from 'react-router-dom';
 import styles from '../styles/common.scss';
 
+import Header from './header/header';
 import ContactUsForm from './form/ContactUsForm';
-import Success from './form/Success';
+import Success from './success/Success';
 
 const DisplayForm = () => {
   return(
@@ -37,15 +38,18 @@ class Main extends React.Component {
     super();
   }
 
-
   render(){
     return(
-      <HashRouter>
-        <div>
-          <Route exact path="/" component={() => (<ContactUsForm contactDetails={this.props.contactDetails} setContactDetails={this.props.setContactDetails}/>)} />
-          <Route exact path="/success" component={() => (<Success contactDetails={this.props.contactDetails}/>)} />
-        </div>
-      </HashRouter>
+      <div className={styles.pageContainer}>
+      <Header />
+        <HashRouter>
+          <div className={`container ${styles.contactUsForm}`} >
+            <h1>Contact Us</h1>
+            <Route exact path="/" component={() => (<ContactUsForm contactDetails={this.props.contactDetails} setContactDetails={this.props.setContactDetails}/>)} />
+            <Route exact path="/success" component={() => (<Success contactDetails={this.props.contactDetails}/>)} />
+          </div>
+        </HashRouter>
+      </div>
       // <div>
       //   <h1>Contact Us</h1>
       //   <p>Use the following form to contact us. We will reply as soon as possible</p>

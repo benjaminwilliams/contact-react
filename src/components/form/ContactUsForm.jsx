@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import formStyles from './styles.scss';
 
 export default class ContactUsForm extends React.Component {
 
@@ -67,25 +67,26 @@ export default class ContactUsForm extends React.Component {
     const contactDetails = this.props.contactDetails;
     const submittedDetails = this.state.submittedDetails;
     return(
-      <form onSubmit={this.handleSubmit}>
-        <h1>Contact Us </h1>
-        <div className="form-group">
-          <label htmlFor="name" >Name:</label>
-          <input id="name" ref="name" type="text" maxLength="256" required defaultValue={contactDetails.name} className="form-control"/>
-        </div>
+      <div className="row">
+        <form onSubmit={this.handleSubmit} className={`col-md-6 ${formStyles.form}`}>
+          <div className={`form-group ${formStyles.nameWrapper}`}>
+            <label htmlFor="name" >Name:</label>
+            <input id="name" ref="name" type="text" maxLength="256" required defaultValue={contactDetails.name} className="form-control"/>
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="email" >Email Address:</label>
-          <input id="email" ref="email" maxLength="256" required type="email" defaultValue={contactDetails.email} className="form-control"/>
-        </div>
-        <div className="form-group">
-          <label htmlFor="message">Message:</label>
-          <textarea id="message" ref="message"  type="text" rows="5" maxLength="1000" required className="form-control"/>
-        </div>
-        <input type="submit" value="Submit" className="btn btn-primary"/>
+          <div className={`form-group ${formStyles.emailWrapper}`}>
+            <label htmlFor="email" >Email Address:</label>
+            <input id="email" ref="email" maxLength="256" required type="email" defaultValue={contactDetails.email} className="form-control"/>
+          </div>
+          <div className={`form-group ${formStyles.messageWrapper}`}>
+            <label htmlFor="message">Your Message:</label>
+            <textarea id="message" ref="message"  type="text" rows="5" maxLength="1000" required className="form-control"/>
+          </div>
+          <input type="submit" value="Submit" className="btn btn-primary"/>
 
 
-      </form>
+        </form>
+      </div>
     )
   }
 }
