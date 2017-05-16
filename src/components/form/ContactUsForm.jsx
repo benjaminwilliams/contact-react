@@ -7,7 +7,9 @@ export default class ContactUsForm extends React.Component {
   constructor(props){
     super(props);
     this.getFieldValues = this.getFieldValues.bind(this);
+    this.handleSave = this.handleSave.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
     this.state = {
       submittedDetails: {
         name: "",
@@ -17,10 +19,6 @@ export default class ContactUsForm extends React.Component {
     }
   }
 
-  componentDidMount(){
-    console.log("mounted");
-  }
-
   // Reads the form and returns the entered values
   getFieldValues(){
     return {
@@ -28,6 +26,14 @@ export default class ContactUsForm extends React.Component {
       email: this.refs.email.value,
       message: this.refs.message.value
     };
+  }
+
+  // Save inputs to props
+  // Would not use in the real world for a form this small, but useful to test localStorage
+  handleSave(event){
+    event.preventDefault();
+    const fieldValues = this.getFieldValues();
+    this.props.setContactDetails(fieldValues);
   }
 
 
@@ -65,7 +71,6 @@ export default class ContactUsForm extends React.Component {
   render(){
     // get contact details from props
     const contactDetails = this.props.contactDetails;
-    const submittedDetails = this.state.submittedDetails;
     return(
       <div className="row">
         <form onSubmit={this.handleSubmit} className={`col-md-6 ${formStyles.form}`}>
@@ -82,6 +87,7 @@ export default class ContactUsForm extends React.Component {
             <label htmlFor="message">Your Message:</label>
             <textarea id="message" ref="message"  type="text" rows="5" maxLength="1000" required className="form-control"/>
           </div>
+          <button className="btn" onClick={(e)=> this.handleSave(e)}>Save</button>
           <input type="submit" value="Submit" className="btn btn-primary"/>
 
 

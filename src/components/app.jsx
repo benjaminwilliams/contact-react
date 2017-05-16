@@ -38,6 +38,20 @@ class Main extends React.Component {
     super();
   }
 
+  componentWillMount(){
+    // fill props from localStorage if avaliable
+    const localStorageData = localStorage.getItem('contact-details');
+
+    if(localStorageData){
+      this.props.setContactDetails(JSON.parse(localStorageData));
+    }
+  }
+
+  componentWillUpdate(nextProps){
+    // Watch for changes on Props, and store it to localStorage
+    localStorage.setItem('contact-details', JSON.stringify(nextProps.contactDetails));
+  }
+
   render(){
     return(
       <div className={styles.pageContainer}>
@@ -50,11 +64,6 @@ class Main extends React.Component {
           </div>
         </HashRouter>
       </div>
-      // <div>
-      //   <h1>Contact Us</h1>
-      //   <p>Use the following form to contact us. We will reply as soon as possible</p>
-      //   <ContactUsForm contactDetails={this.props.contactDetails} setContactDetails={this.props.setContactDetails} />
-      // </div>
     )
   }
 }
