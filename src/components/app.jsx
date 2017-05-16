@@ -39,7 +39,7 @@ class Main extends React.Component {
   }
 
   componentWillMount(){
-    // fill props from localStorage if avaliable
+    // fill props from localStorage if available
     const localStorageData = localStorage.getItem('contact-details');
 
     if(localStorageData){

@@ -17,7 +17,7 @@ export default class Success extends React.Component{
   handleStartAgain(){
     //TODO: Should props be reset here? User may want to keep email address?
     //send user back to the first page
-    window.location = "/#/";
+    window.location = "#/";
   }
 
   render(){
