@@ -9,15 +9,10 @@ export default class ContactUsForm extends React.Component {
     this.getFieldValues = this.getFieldValues.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.submitForm = this.submitForm.bind(this);
 
-    this.state = {
-      submittedDetails: {
-        name: "",
-        email: "",
-        message: ""
-      }
-    }
   }
+
 
   // Reads the form and returns the entered values
   getFieldValues(){
@@ -36,37 +31,43 @@ export default class ContactUsForm extends React.Component {
     this.props.setContactDetails(fieldValues);
   }
 
-
-  // Push contact details to props
-  handleSubmit(event){
+  submitForm(fieldValues){
     // Using a free online hosted mock API.
     // Response should be the values passed in with a ID and timestamp added
-    const APIUrl = "https://reqres.in/api";
-    const fieldValues = this.getFieldValues();
-    const self = this;
-    event.preventDefault();
+    let APIUrl = "https://reqres.in/api";
 
-    this.props.setContactDetails(fieldValues); // save details to props
-
+    //TODO: Remove this killswitch, it is only for the demo
+    // Stops the form sending to the correct API endpoint
+    if(fieldValues.name === "error"){
+      APIUrl = "https://";
+    }
     // Using axious to post contact us form to API endpoint
     axios.post(APIUrl + '/contact-us', {
       name: fieldValues.name,
       email: fieldValues.email, message: fieldValues.message
     })
-      .then((response)=>{
+      .then(response =>{
         this.props.setContactDetails({
           name: response.data.name,
           email: response.data.email,
           message: response.data.message
         });
         window.location = '/#/success';
-
       })
-      .catch((error)=>{
+      .catch(error =>{
         console.log('error: ' + error);
       })
   }
 
+  // Push contact details to props
+  handleSubmit(event){
+    event.preventDefault();
+
+    const fieldValues = this.getFieldValues();
+
+    this.props.setContactDetails(fieldValues); // save details to props
+    this.submitForm(fieldValues);
+  }
 
   render(){
     // get contact details from props
@@ -85,12 +86,10 @@ export default class ContactUsForm extends React.Component {
           </div>
           <div className={`form-group ${formStyles.messageWrapper}`}>
             <label htmlFor="message">Your Message:</label>
-            <textarea id="message" ref="message"  type="text" rows="5" maxLength="1000" required className="form-control"/>
+            <textarea id="message" ref="message"  type="text" rows="5" maxLength="1000" required className="form-control" defaultValue={contactDetails.message}/>
           </div>
-          <button className="btn" onClick={(e)=> this.handleSave(e)}>Save</button>
+          <button className={`btn ${formStyles.saveButton}`} onClick={(e)=> this.handleSave(e)}>Save</button>
           <input type="submit" value="Submit" className="btn btn-primary"/>
-
-
         </form>
       </div>
     )
